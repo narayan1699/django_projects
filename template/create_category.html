@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Add category </title>
+
+</head>
+<body>
+
+    <h1> create category </h1>
+    <div class="category">
+        <form action="" method="post">
+            {% csrf_token %}
+            <label for="category_name">category:</label>
+            <input type="text" name="category_name" placeholder="category_name"> <br><br>
+
+            <label for="image">Upload image:</label>
+            <input type="file" name="image"><br><br>
+
+            <input type="submit" value="create">
+        </form>
+    </div>
+
+
+</body>
+</html>

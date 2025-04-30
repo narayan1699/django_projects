@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add To Cart</title>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Your Cart</h1>
+
+        <div class="cart-items">
+            {% if cart_items %}
+                <ul>
+                    {% for item in cart_items %}
+                    <li class="cart-item">
+                        <div class="image-section">
+                            {% if item.product.image.first %}
+                                <img src="{{ item.product.images.first.image.url }}" alt="{{ item.product.product_name}}">
+                                <!-- <img src="{{ product_image.image.url }}" alt="{{ product.product_name }}" class="thumbnail" > -->
+                            {% else %}
+                                <p>No image available</p>
+                            {% endif %}
+                        </div>
+
+                        <div class="cart_item-details">
+                            <h2>{{ item.product.product_name }}</h2>
+                            <p>Price: ${{ item.product.product_price }}</p>
+                            <p>Stock: {{ item.product.stock }}</p>
+                            <p>Quantity: {{ item.quantity }}</p>
+                            <p>Total Price: {{ item.total_price|floatformat:2 }}</p>
+                        </div>
+
+                        <form action="/remove_from_cart/{{item.product.id}}/" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="remove-btn">
+                                <i class="fas-fa-trash"></i>Remove
+                            </button>
+                        </form>
+                    </li>
+                    {% endfor %}
+                </ul>
+
+                <div class="cart-summary">
+                    <p><strong>Total Amout: ${{ total_amount|floatformat:2 }}</strong></p>
+                </div>
+                
+                <button>
+                    <a href="/order/" class="create-order-btn">Proceed to Order></a>
+                </button>
+
+            {% else %}
+                <p class="empty-cart-msg">Youyr cart is empty. Start shopping now.</p>
+            {% endif %}
+
+        </div>
+    </div>
+    
+</body>
+</html>

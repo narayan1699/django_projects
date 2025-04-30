@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1d23;
+        }
+
+        .search-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #eeeff1;
+            border: 1px solid #eeeff1;
+            box-shadow: 0 2px 4px rgba(229, 84, 84, 0.1);
+        }
+
+        .search-header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .search-results {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .search-result {
+            padding: 10px;
+            border-bottom: 1px solid #1a1d23;
+        }
+
+        .search-result a {
+            text-decoration: none;
+            color: #100707;
+        }
+
+        .search-result a:hover {
+            color: #ddd;
+        }
+
+        .no-results {
+            font-size: 18px;
+            font-weight: bold;
+            color: #f0f0f0;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <h1 class="search-header">Search Results</h1>
+        <div>
+            {% if products %}
+                <h2>Results for "{{ query }}"</h2>
+                <ul class="search-results">
+                    {% for product in products %}
+                        <li class="search-result">
+                            <a href="/product_detail/{{product.id}}">
+                                {{ product.product_name }} - {{ product.product_color }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="no-results">No products found for "{{ query }}".</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

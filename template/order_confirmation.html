@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Order Sonfirmation</h1>
+    </div>
+
+    <div class="order-details">
+        <h2>Order #{{ order.id }} - Confirmed </h2>
+        <p><strong>Thank youn for successfully plasced. Below are the details:</strong></p>
+
+        <div class="order-summry">
+            <h3>Order Summary:</h3>
+            <table class="table table-borderd">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th><img src="order.product.product_image.first.image.url" alt="{{order.product.product_name}}" class="product-image">
+                        {{ order.product.product_name }}</th>
+                        <th>{{ order.quantity }}</th>
+                        <th>{{ order.price }}</th>
+                        <th>{{ total_price }}</th>
+                        <p><strong>Total Amount: ${{ total_price }}</strong></p>
+                    </tr>
+                </tbody>
+            </table>
+            <p><strong>Total Amont: ${{total_price}}</strong></p>
+
+
+            <h5>Delivery Address:</h5>
+            <p>{{ order.shipping_address }}</p>
+
+            <h5>Payment Method:</h5>
+            <p>{{ order.payment_method }}</p>
+
+            <h5>Expected Delivery Date:</h5>
+            <p>{{ order.delivery_date }}</p>
+
+            <h5>Order Status:</h5>
+            <p><strong>{{ order.status }}</strong></p>
+        </div>
+
+        <button>
+            <a href="/homepage" class="button">Back to Homepage</a>
+        </button>
+
+    </div>
+    
+</body>
+</html>

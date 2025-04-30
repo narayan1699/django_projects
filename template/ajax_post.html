@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   <title>Post request</title>
+</head>
+<body>
+   <h1>POST request</h1>
+   
+   <form id="review-form">
+       {% csrf_token %}
+       <label for="rating">Rating (1 to 5):</label>
+       <input type="number" name="rating" id="rating" placeholder="rating"><br><br>
+
+       <label for="review">Review:</label>
+       <input type="text" name="review" id="review" placeholder="review"><br><br>
+
+       <label for="product_id">Product id:</label>
+       <input type="text" name="product" id="product_id" placeholder="product id"><br><br>
+
+
+       <input type="button" value="post review" class="post_button">
+   </form>
+   <script>
+       $(document).ready(()=>{
+           $(".post_button").click(()=>{
+
+               const rating = $("#rating").val()
+               const review = $("#review").val()
+               const product_id = $("#product_id").val()
+
+               $.ajax({
+                   method:'POST',
+                   url: "http://127.0.0.1:8000/api/review/",
+                   data: JSON.stringify({
+                       rating:rating,
+                       review_text:review,
+                       product_id:product_id,
+
+                   }),
+                   contentType:'application/json',
+                   headers:{
+                       'X-CSRFToken': $("input[name=csrfmiddlewaretoken]").val(),
+                   },
+                   success:(res) =>{
+                       console.log(res)
+                   }
+
+               })
+           })
+       })
+   </script>
+</body>
+</html>

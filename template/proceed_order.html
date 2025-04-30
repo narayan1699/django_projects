@@ -1,0 +1,186 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if is_buy_now %}Buy Now{% else %}Proceed to Order{% endif %}</title>
+</head>
+<body>
+    <div class="container">
+        <h2>{% if is_buy_now %}Buy Now - Product Review{% else %}Proceed to Order - Cart Review{% endif %}</h2>
+
+        {% if is_buy_now %}
+            <div class="product-detail-wrapper">
+                <div class="product-info">
+                    <h4>{{ product.product_name }}</h4>
+                    <p><strong>Price: ${{ product.product_price }}</strong></p>
+                    <p><strong>Quantity:</strong>
+                       <input type="number" name="quantity" value="1" min="1" max={{product.stock}} class="form-control" required>
+                    </p>
+                    
+                </div>
+                
+                <div class="product-images">
+                    <img src="{{ product.product_image_set.first.image.url }}" alt="{{ product.product_name }}" style="max-width: 100px; height: auto;">
+                    
+                </div>
+            </div>
+        {% else %}
+            {% if cart_items %}
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in cart_items %}
+                            <tr>
+                                <td>{{ item.product.product_name }}</td>
+                                <td>{{ item.quantity }}</td>
+                                <td>${{ item.product.product_price }}</td>
+                                <td>${{ item.total_price }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <div class="Amount">
+                    <h4>Total Amount: ${{ total_amount }}</h4>
+                </div>
+            {% else %}
+                <p>Your cart is empty. Add items to the cart first.</p>
+            {% endif %}
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form_of_address">
+                <label for="shipping_address">Shipping Address</label>
+                <textarea id="shipping_address" name="shipping_address" class="form-control" required></textarea>
+            </div>
+
+            <div class="form_payment_method">
+                <label for="payment_method">Payment Method</label>
+                <select id="payment_method" name="payment_method" class="control" required>
+                    <option value="credit_card">Credit Card</option>
+                    <option value="phonepay">Phonepay</option>
+                    <option value="paytm">Paytm</option>
+                    <option value="bank_transfer">Bank Transfer</option>
+                </select>
+            </div>
+
+            <div class="form_date">
+                <label for="delivery_date">Delivery Date</label>
+                <input type="date" name="delivery_date" id="delivery_date" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                {% if is_buy_now %}
+                    Buy Now
+                {% else %}
+                    Place Order
+                {% endif %}
+            </button>
+        </form>
+    </div>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if is_buy_now %}Buy Now{% else %}Proceed to Order{% endif %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+</head>
+<body>
+    <div class="container">
+        <h2>{% if is_buy_now %}Buy Now - Product Review{% else %}Proceed to Order - Cart Review{% endif %}</h2>
+
+        {% if is_buy_now %}
+            <div class="product-detail-wrapper">
+                <div class="product-info">
+                    <h4>{{ product.product_name }}</h4>
+                    <p><strong>Price: ${{ product.product_price }}</strong></p>
+                    <p><strong>Quantity:</strong>
+                       <input type="number" name="quantity" value="1" min="1" max={{product.stock}} class="form-control" required>
+                    </p>
+                    <!-- <p><strong>Description:</strong> {{ product.product_description }}</p> -->
+                </div>
+                
+                <div class="product-images">
+                    <img src="{{ product.images.first.image.url }}" alt="{{ product.product_name }}" style="max-width: 100px; height: auto;">
+                    <!-- <img src="{{ product.images.first.image.url }}" alt="{{ product.product_name }}" class="product-img"> -->
+                </div>
+            </div>
+        {% else %}
+            {% if cart_items %}
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in cart_items %}
+                            <tr>
+                                <td>{{ item.product.product_name }}</td>
+                                <td>{{ item.quantity }}</td>
+                                <td>${{ item.product.product_price }}</td>
+                                <td>${{ item.total_price }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <div class="Amount">
+                    <h4>Total Amount: ${{ total_amount }}</h4>
+                </div>
+            {% else %}
+                <p>Your cart is empty. Add items to the cart first.</p>
+            {% endif %}
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form">
+                <label for="shipping_address">Shipping Address</label>
+                <textarea id="shipping_address" name="shipping_address" class="form-control" required></textarea>
+            </div>
+
+            <div class="form">
+                <label for="payment_method">Payment Method</label>
+                <select id="payment_method" name="payment_method" class="control" required>
+                    <option value="credit_card">Credit Card</option>
+                    <option value="phonepay">Phonepay</option>
+                    <option value="paytm">Paytm</option>
+                    <option value="bank_transfer">Bank Transfer</option>
+                </select>
+            </div>
+
+            <div class="form">
+                <label for="delivery_date">Delivery Date</label>
+                <input type="date" name="delivery_date" id="delivery_date" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                {% if is_buy_now %}
+                    Buy Now
+                {% else %}
+                    Place Order
+                {% endif %}
+            </button>
+        </form>
+    </div>
+</body>
+</html>

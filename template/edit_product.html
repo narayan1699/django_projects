@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product {{ product.product_name }}</title>
+</head>
+<body>
+
+    <header>
+        <h1>Edit Product Detail: {{ product.product_name }}</h1>
+    </header>
+
+    <div class="container">
+        <form method="POST" enctype="multipart/form-data" >
+            {% csrf_token %}
+
+            <label for="product_name">Product_name:</label>
+            <input type="text" name="product_name" id="product_name" value="{{product.product_name}}"required><br>
+            
+            <label for="product_price">Product_price:</label>
+            <input type="number" name="product_price" id="product_price" value="{{product.product_price}}"><br>
+
+            <label for="product_description">Product_description:</label>
+            <textarea name="product_description" id="product_description" required>{{ product.product_description }}</textarea><br>
+
+            <label for="color">Color:</label>
+            <input type="text" name="color" id="color" value="{{product.color}}"required><br>
+
+            <label for="size">Size:</label>
+            <input type="text" name="size" id="size" value="{{product.size}}"required><br>
+
+            <label for="brand">Brand:</label>
+            <input type="text" name="brand" id="brand" value="{{product.brand}}"><br>
+
+            <label for="stock">Stock:</label>
+            <input type="number" name="stock" id="stock" value="{{product.stock}}"><br>
+
+            <h2>Product Images:</h2>
+            <!-- <h3>Product Name : {{ product.product_name }}</h3> -->
+             
+            <!-- <div class="product_images">
+
+                {% for image in product_image_set.all %}
+                    <div>
+                        <img src="{{image.image.url}}" alt="{{product.product_name}}" width="250">
+
+                        <label for="delete_{{image.id}}">Delete this image</label>
+                        <input type="checkbox" name="delete_images" id="delete_{{image.id}}" value="{{image.id}}">
+
+                        <label for="new_image_{{image.id}}">Replace image for this product</label>
+                        <input type="file" name="new_image_{{image.id}}" id="new_image_{image.id}">
+                    </div>
+                {% empty %}
+                    <p>No image available.</p>
+                {% endfor %}
+                
+            </div> -->
+
+            <div class="product-images">
+                {% for image in product.images.all %}
+                    <div>
+                        <img src="{{ image.image.url }}" alt="{{ product.product_name }}" width="200">
+                        
+                        <label for="delete_{{ image.id }}">Delete this image?</label>
+                        <input type="checkbox" name="delete_images" value="{{ image.id }}" id="delete_{{ image.id }}">
+
+                        <label for="new_image_{{ image.id }}">Replace image?</label>
+                        <input type="file" name="new_image_{{ image.id }}" id="new_image_{{ image.id }}">
+                    </div>
+                {% empty %}
+                    <p>No images available.</p>
+                {% endfor %}
+            
+            </div>
+
+            <div>
+                <label for="new_images">Add new images:</label>
+                <input type="file" name="new_images" multiple>
+            </div>
+
+            <button type="submit">Save Changes</button>
+
+
+        </form>
+    </div>
+
+
+
+    
+</body>
+</html>

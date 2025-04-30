@@ -1,0 +1,11 @@
+<h3> Are you sure you want to delete the sub category "{{sub_category.sub_category_name}}"?</h3>
+<p>{{sub_category.sub_category_name}}</p>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <button type="submit">Yes,delete it</button>
+</form>
+
+<br>
+<a href="/homepage/">Cancel</a>

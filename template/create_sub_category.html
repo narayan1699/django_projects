@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Add category </title>
+
+</head>
+<body>
+
+    <div class="sub_category">
+        <h1>Create Sub_category for "{{ category.category_name }}"</h1>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <label for="sub_category_name">sub category name:</label>
+            <input type="text" name="sub_category_name" placeholder="sub_category_name"> <br><br>
+
+
+            <label for="image">image</label>
+            <input type="file" name="image"><br><br>
+
+
+            <input type="submit" value="create">
+
+
+        </form>
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+
+
+
+{% load static %} 
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title></title> 
+  <link rel="stylesheet" href="{% static 'style.css' %}"> 
+  <style> 
+    body { 
+      font-family: Arial, sans-serif; 
+      background-color: #f4f4f4; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      height: 100vh; 
+      margin: 0; 
+    } 
+    form { 
+      background: white; 
+      padding: 20px; 
+      border-radius: 8px; 
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+      width: 300px; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+    } 
+    h1 { 
+      text-align: center; 
+      color: #333; 
+    } 
+    label { 
+      margin-top: 10px; 
+      font-weight: bold; 
+      align-self: flex-start; 
+    } 
+    input { 
+      padding: 8px; 
+      margin-top: 5px; 
+      border: 1px solid #ccc; 
+      border-radius: 5px; 
+      outline: none; 
+      width: 100%; 
+    } 
+    button { 
+      background-color: #007bff; 
+      color: white; 
+      padding: 10px; 
+      border: none; 
+      border-radius: 5px; 
+      cursor: pointer; 
+      margin-top: 15px; 
+      font-size: 16px; 
+      width: 100%; 
+    } 
+    button:hover { 
+      background-color: #0056b3; 
+    } 
+    .create-user-button { 
+      background-color: #007bff; 
+      color: white; 
+      padding: 10px; 
+      border: none; 
+      border-radius: 5px; 
+      cursor: pointer; 
+      margin-top: 15px; 
+      font-size: 16px; 
+      width: 100%; 
+    } 
+    .create-user-button:hover { 
+      background-color: #218838; 
+    }
+    .create-user-button a{
+        color: white;
+    }
+  </style> 
+</head> 
+
+<body>
+    <form method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1>login</h1>
+
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username">
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password"required>
+
+        <button type="submit">Login</button>
+
+        <button class="create-user-button"><a href="/create_user/"> Create a new user</a></button>
+
+    </form><br><br>
+
+
+</body>
+</html>

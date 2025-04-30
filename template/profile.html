@@ -1,0 +1,49 @@
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'static.css' %}">
+    <title>User Profile</title>
+</head>
+
+<body>
+    <h1>Profile of {{ user.username }}</h1>
+    <div class="profile-section">
+        <form method="POST" action="/update-profile">
+            <p><strong>Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+
+            
+            <label for="email" class="form-label">Email:</label>
+            <input type="email" id="email" name="email" value="{{ user.email }}" class="form-input" required>
+
+            
+            <label for="phone_no" class="form-label">Phone No:</label>
+            <input type="text" id="phone_no" name="phone_no" value="{{ user.profile.phone_no }}" class="form-input" required>
+
+          
+            <label for="vendor_status" class="form-label">Vendor Status:</label>
+            
+        </form>
+        
+        {% if is_vendor %}
+            <div class="vendor-status yes">Vendor Status: yes</div>
+        {% else %}
+            <div class="vendor-status no">Vendor Status: no</div>
+        {% endif %}
+
+
+        <div class="order-history-card">
+            <h3>Your Orders</h3>
+            <p>View your previous purchases and order details.</p>
+            <button>
+                <a href="/history/">View Order History</a>
+            </button>
+        </div>
+
+    </div>
+</body>
+</html>

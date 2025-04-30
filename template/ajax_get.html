@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>ajax get request page</title>
+
+</head>
+<body>
+    
+
+    <script>
+        $(document).ready(()=>{
+            $(".get_button").click(()=>{
+                $.ajax({
+                    method:'GET',
+                    url: "http://127.0.0.1:8000/api/products/",
+                    success: ((res)=>{
+                        console.log(res.results)
+
+                        var data = ""
+                        res.results.map((item,index)=>{
+                            data += `<p>Price: ${item.product_price}, Name: ${item.product_name}, Brand: ${item.brand} </p>`
+                            // data+=`<p>${item.product_price,product_name}</p>`
+                        })
+
+                        $(".show_data").html(data)
+
+                    })
+                })
+            })
+        })
+
+    </script>
+    
+
+    <h1>Ajax Page</h1>
+    <input type="button" value="Get category" class="get_button">
+
+    <div class="show_data">
+        
+    </div>
+</body>
+</html>

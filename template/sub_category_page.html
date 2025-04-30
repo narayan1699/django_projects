@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'sub_category.css' %}">
+    <title> sub_categories of {{Category.category_name}}  </title>
+
+</head>
+<body>
+
+    <header>
+        <h1>Sub_categories of {{category.category_name}}</h1>
+    </header>
+
+    <!-- <h1>{{ category.category_name }}</h1>
+    <p>Category ID: {{category.id}}</p>
+    <img src="{{category.image.url}}"/> -->
+
+    <div class="sub_category create button">
+        {% if user.profile.is_vendor %}
+            <button>
+                <a href="/create_subcategory/{{category.id }}">Sub Create Category</a>
+            </button>
+        {% endif %}
+    </div>
+    
+    <div class="sub_categories-list">
+
+
+
+        {% for sub_category in sub_categories %}
+        
+            <div class="sub_category-item">
+
+                <div class="sub_category-product-link">
+                    <h2>
+                        <!-- <a href="/product_list_page/{{sub_category.id}}">{{ sub_category.sub_category_name }}</a> -->
+                        <a href="/product_list_page/{{ sub_category.id }}">{{ sub_category.sub_category_name }}</a>
+                    </h2>
+                </div>
+
+                <div class="sub_category-image">
+                    {% if sub_category.image %}
+                        <div class="sub_category-img">
+                            <img src="{{ sub_category.image.url }}" alt="{{ sub_category.image }}" style="max-width: 100px; left: auto;">
+                        </div>
+                    {% else %}
+                        <p>No image available for this sub_category</p>
+                    {% endif %}
+
+                </div>
+                
+
+                <div>
+                    {% if user.profile.is_vendor %}
+                        <button>
+                            <a href="/edit_sub_category/{{sub_category.id}}">Edit Sub Category</a>
+                        </button>
+                        <button>
+                            <a href="/delete_sub_category/{{sub_category.id}}">Delete Sub Category</a>
+                        </button>
+                        <button>
+                            <a href="/create_product/{{sub_category.id}}">Create Product</a>
+                        </button>
+                    {% endif %}
+                </div>
+
+            </div>
+
+        {% empty %}
+            <p> NO Sub_categories is available for this category </p>
+        {% endfor %}
+        
+
+    </div>
+
+
+</body>
+</html>
+

@@ -1,0 +1,51 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'static.css' %}">
+    
+<body>
+    <form method="POST" action="" enctype="multipart/form-data">
+
+        {% csrf_token %}
+        <h1>Create New User</h1>
+
+        <label for="username">User Name: </label>
+        <input type="text" name="username" placeholder="Enter your user name" required><br><br>
+
+        <label for="first_name">First Name: </label>
+        <input type="text" name="first_name" placeholder="Enter your first name" required><br><br>
+
+        <label for="last_name">Last Name: </label>
+        <input type="text" name="last_name" placeholder="Enter your last name" required><br><br>
+
+        <label for="email">Email: </label>
+        <input type="email" name="email" placeholder="Enter your email" required><br><br>
+
+        <label for="password">Password: </label>
+        <input type="password" name="password" placeholder="Enter your password" required><br><br>
+
+
+        <label for="phone_number">Phone Number: </label>
+        <input type="number" name="phone_number" placeholder="Enter your phone no" /><br><br>  
+
+        <label for="is_vendor">Are you a vendor?</label>
+        <input type="radio" name="is_vendor" value="True" id="is_vendor_yes">
+        <label for="is_vendor_yes">Yes</label>
+
+        <input type="radio" name="is_vendor" value="False" id="is_vendor_no">
+        <label for="is_vendor_no">No</label><br><br>
+        
+
+        <button type="submit">Create</button>
+        <p><a href="/homepage/">return to Home</a></p>
+
+
+    </form>
+
+</body>
+</html>

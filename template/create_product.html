@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Product</title>
+</head>
+<body>
+
+    <div class="continer">
+
+        <h1>Create New Product</h1>
+
+        <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+        <label for="product_name">product_name</label>
+        <input type="text" name="product_name" id="product_name" placeholder="Enter product_name" required><br><br>
+
+        <label for="product_price">product_price</label>
+        <input type="number" name="product_price" id="product_price" placeholder="Enter product_price" required><br><br>
+
+        <label for="product_description">product_description</label>
+        <textarea name="product_description" id="product_description" placeholder="Enter product_description"></textarea><br><br>
+
+        <label for="color">color</label>
+        <input type="text" name="color" id="color" placeholder="Enter color" required><br><br>
+
+        <label for="size">size</label>
+        <input type="number" name="size" id="size" placeholder="Enter size" required><br><br>
+
+        <label for="brand">brand</label>
+        <input type="text" name="brand" id="brand" placeholder="Enter brand" required><br><br>
+
+        <label for="stock">stock</label>
+        <input type="number" name="stock" id="stock" placeholder="Enter stock" required><br><br>
+
+
+        <label for="image">image</label>
+        <input type="file" name="image" id="image" multiple>
+
+        <button type="submit">Create Product</button>
+    
+        </form>
+
+
+    </div>
+    
+</body>
+</html>

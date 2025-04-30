@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products in {{ sub_category.sub_category_name }}</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+    <header>
+        <h1>Products in {{ sub_category.sub_category_name }}</h1>
+    </header>
+
+    {% if user.profile.is_vendor %}
+        <button>
+            <a href="/create_product/{{ sub_category.id }}">Create Product</a>
+        </button>
+    {% endif %}
+
+    {% if products %}
+        <div class="product-list">
+            {% for product in page_obj %}
+                <div class="product-item">
+                    <a href="/product_detail/{{ product.id }}" class="product-item-link">
+                        <h2 class="product-name">{{ product.product_name }}</h2>
+                        <p class="product-price">Price: ${{ product.product_price }}</p>
+
+                       
+                        {% if product.image_url %}
+                            <img src="{{ product.image_url }}" alt="{{ product.product_name }}" width="150">
+                        {% else %}
+                            <p>No image available</p>
+                        {% endif %}
+                    </a>
+
+                    <div>
+                        {% if user.profile.is_vendor %}
+                            <button>
+                                <a href="/edit_product/{{ product.id }}" class="edit-button">Edit Product</a>
+                            </button>
+                            <button>
+                                <a href="/delete_product/{{ product.id }}" class="edit-button">Delete Product</a>
+                            </button>
+                        {% endif %}
+                    </div>
+
+                </div>
+            {% endfor %}
+        </div><br><br>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; First</a>
+                <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            {% endif %}
+            
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <a href="?page={{ num }}" class="current-page">{{ num }}</a>
+                {% else %}
+                    <a href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+            
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+            {% endif %}
+        </div>
+
+    {% else %}
+        <p>No products found in this sub-category.</p>
+    {% endif %}
+
+</body>
+</html>
+
+

@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title> See Shoes </title>
+
+</head>
+
+<body>
+
+    <h1>welcome to See Shoes</h1>
+
+    <div class="navbar">
+        {% if user.is_authenticated %}
+        {% if user.profile.is_vendor %}
+        <button>
+            <a href="/create_category/{{category.id }}">Create Category</a>
+        </button>
+        {% endif %}
+        <button><a href="/profile/">Profile</a></button>
+        <button><a href="/logout/">Logout</a></button>
+        <button><a href="/create_user/">Create User</a></button>
+        {% else %}
+        <button><a href="/login/">Login</a></button>
+        {% endif %}
+
+    </div>
+
+    <div class="searchbar">
+        <form action="/search/" method="get" class="search-form">
+
+            <input type="text" name="q" placeholder="    Search   " class="search-input">
+            <button type="submit" class="search-button">Search</button>
+        </form>
+    </div>
+
+    <div class="categorys-list">
+        {% for category in category %}
+
+        <div class="category">
+            <div class="category-item">
+                <h2>
+                    <a href="/sub_category/{{category.id}}">{{category.category_name}}</a>
+                </h2>
+
+                <div class="category image">
+                    {% if category.image %}
+                    {% if user.profile.is_vendor %}
+
+                    <button>
+                        <a href="/edit_category/{{category.id }}">Edit Category</a>
+                    </button>
+
+                    {% endif %}
+
+                    <img src="{{category.image.url}}" alt="{{ category.category_name }}"
+                        style="max-width: 200px; height: auto;">
+
+                    {% else %}
+                    <p>No image available</p>
+                    {% endif %}
+                </div>
+
+
+
+            </div>
+        </div>
+        {% endfor %}
+
+    </div><br><br>
+
+
+</body>
+
+
+</html>

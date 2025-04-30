@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Category</title>
+</head>
+<body>
+
+    <header>
+        <h1>Edit Category: '{{category.category_name}}'</h1>
+    </header>
+
+    <div class="container">
+        <form method="POST" enctype="multipart/form-data" >
+            {% csrf_token %}
+
+            <label for="category_name">category_name:</label>
+            <input type="text" name="category_name" value="{{category.category_name}}" required><br><br>
+
+            <label for="image">image</label>
+            <input type="file" name="image"><br><br>
+
+            {% if category.image %}
+                <h2>Current Image:</h2>
+                <img src="{{ category.image.url }}" alt="{{ category.category_name }}" class="category_image" style="max-width: 200px;">
+            {% else %}
+                <p>
+                    No image found
+                </p>
+            {% endif %}
+
+            <button type="submit">save changes </button><br><br>
+
+            <button>
+                <a href="/homepage/">Homepage</a>
+            </button>
+
+        </form>
+    </div>
+
+    
+</body>
+</html>
