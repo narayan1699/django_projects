@@ -75,6 +75,8 @@ class ProductSerchAPIView(generics.ListAPIView):
 
 
     """"   This is the another way of filtering    """
+
+    
     def get_queryset(self):
         queryset = super().get_queryset()
         query = self.request.query_params.get('search')
