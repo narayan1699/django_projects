@@ -25,6 +25,8 @@ from rest_framework import generics, filters
 
 
 ## custom_serializer
+
+
 """ pk == premiere key """
 
 class SubcategoryBYCategoryIDviewSet(ModelViewSet):
@@ -53,46 +55,33 @@ class ProductBYSubcatgoryIDviewSet(ModelViewSet):
         return Response(ProductBySubcategoryIDserializer(product,many=True).data,status=status.HTTP_200_OK)
 
 
-# class ProductViewSet(viewsets.GenericViewSet):
-#     queryset = Product.objects.all()
-#     serializer_class = ProductSerializer
-       
-# class ProductSearchView(viewsets.GenericAPIView):
-#     serializer_class = ProductSerializer
-
-#     def get(self, request):
-#         query = self.request.query_perams.get('q')
-#         if query:
-#             products = Product.objects.filter(product_name__icontains=query)
-#         return Response(serializer.data)
-
 class ProductSerchAPIView(generics.ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     """"  This also the way filtering   """
-    # search_fields = ['color','products_name','product_description']
-    # filter_backends = (filters.SearchFilter,)
+    search_fields = ['color','product_name','product_description']
+    filter_backends = (filters.SearchFilter,)
 
 
     """"   This is the another way of filtering    """
 
     
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        query = self.request.query_params.get('search')
-        pr  = self.request.query_params.get('price_gt')
-        if query:
-            return queryset.filter(
-                Q(product_name__incontains = query)|
-                Q(product_description__incontains = query)|
-                Q(color__incontains = query)|
-                Q(product_price__gt = pr)
-            )
-        return queryset
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     query = self.request.query_params.get('search')
+    #     pr  = self.request.query_params.get('price_gt')
+    #     if query:
+    #         return queryset.filter(
+    #             Q(product_name__icontains = query)|
+    #             Q(product_description__icontains = query)|
+    #             Q(color__icontains = query)
+    #             # Q(product_price__gt = pr)
+    #         )
+    #     return queryset
     
 
 
-## GET
+## GET API
 
 class UserViewset(ModelViewSet):
     queryset = User.objects.all()
@@ -102,9 +91,31 @@ class CategoryViewset(ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
+    def create(self, request, *args, **kwargs):
+        name = request.data.get('name')
+        category = Category.objects.create(
+            category_name = name,
+            user_id = request.user.id
+        )
+
+        cat_ser = CategorySerializer(category)
+        return Response(cat_ser.data,status=status.HTTP_201_CREATED)
+
+
+
 class SubCategoryViewset(ModelViewSet):
     queryset = Sub_category.objects.all()
     serializer_class = SubCategorySerializer
+
+    def create(self, request, *args, **kwargs):
+        name = request.data.get("name")
+        sub_Category = Sub_category.objects.create(
+            sub_category_name = name,
+            user_id  = request.user.id
+        )
+        
+        sub_cat_user = SubCategorySerializer(sub_Category)
+        return Response(sub_cat_user.data,status=status.HTTP_201_CREATED)
 
 class ProductImageViewset(ModelViewSet):
     queryset = Product_Image.objects.all()
@@ -122,7 +133,7 @@ class ProductViewset(ModelViewSet):
 #     serializer_class = AddToCartSerializerfrom django.shortcuts import render
 
 
-## POST
+## POST API
 
 class OrderViewSet(ModelViewSet):
     queryset = Order.objects.all()

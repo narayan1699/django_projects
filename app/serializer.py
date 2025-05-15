@@ -36,25 +36,25 @@ class ProductBySubcategoryIDserializer(serializers.ModelSerializer):
 
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username','first_name','last_name','email')
 
 
-class CategorySerializer(serializers.HyperlinkedModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = '__all__'
 
 
-class SubCategorySerializer(serializers.HyperlinkedModelSerializer):
+class SubCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Sub_category
         fields = '__all__'
 
 
-class ProductSerializer(serializers.HyperlinkedModelSerializer):
+class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = '__all__'
@@ -62,13 +62,13 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
         # fields = ('product_name','product_price')
 
 
-class ProductImageSerializer(serializers.HyperlinkedModelSerializer):
+class ProductImageSerializer(serializers.ModelSerializer):
     # product = ProductSerializer(read_only=True)
     class Meta:
         model = Product_Image
         fields = ('id','product','image')
 
-class AddToCart(serializers.HyperlinkedModelSerializer):
+class AddToCart(serializers.ModelSerializer):
     class Meta:
         models = Add_To_Cart
         fields = ('id', 'user', 'product', 'price', 'quantity', 'booking_date', 'delivery_date', 'status', 'shipping_address', 'payment_method')

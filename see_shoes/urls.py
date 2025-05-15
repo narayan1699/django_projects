@@ -21,6 +21,11 @@ from django.conf.urls.static import static
 from django.conf import settings
 from rest_framework import routers
 
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
 
 router = routers.DefaultRouter()
  
@@ -50,6 +55,10 @@ urlpatterns = [
     ## API url ###
     path('api/', include(router.urls)),
     path('api/search/',ProductSerchAPIView.as_view(), name='product_Search'),
+
+    
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
 
     # category
